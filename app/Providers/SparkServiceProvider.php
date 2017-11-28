@@ -65,14 +65,14 @@ class SparkServiceProvider extends ServiceProvider
 
         Spark::plan('Premium', 'expoteca-single-1')
             ->price(39.99)
-            ->trialDays(30)
+            ->yearly()
             ->features([
                 'Unlimitted Expos'
             ]);
 
         Spark::teamPlan('Premium Organization', 'expoteca-organization-1')
             ->price(69.99)
-            ->trialDays(30)
+            ->yearly()
             ->features([
                 'Unlimitted Expos',
                 'Unlimitted Organization members'
