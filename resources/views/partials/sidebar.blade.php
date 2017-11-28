@@ -51,7 +51,7 @@
             </li>
             @endcan
 
-            @can('organizations_manage')
+            @if(Gate::allows('organizations_manage') || !empty($organizations) || count(Auth::user()->organizations()->get()))
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>
@@ -72,7 +72,7 @@
                     </li>
                 </ul>
             </li>
-            @endcan
+            @endif
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
                 <a href="{{ route('password.change') }}">

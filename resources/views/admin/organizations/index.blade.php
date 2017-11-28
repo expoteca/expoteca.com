@@ -36,7 +36,7 @@
                                 <td>{{ $organization->email }}</td>
                                 <td>
                                     @foreach ($organization->users()->pluck('name') as $user)
-                                        <span class="label label-info label-many">{{ $user }}</span>
+                                        {{ $user}}@if (!$loop->last),@endif
                                     @endforeach
                                 </td>
                                 <td>

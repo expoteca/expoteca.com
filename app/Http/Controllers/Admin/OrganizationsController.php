@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreOrganizationsRequest;
 use App\Http\Requests\Admin\UpdateOrganizationsRequest;
+use Auth;
+use Bouncer;
 
 class OrganizationsController extends Controller
 {
@@ -21,10 +23,13 @@ class OrganizationsController extends Controller
     public function index()
     {
         if (!Gate::allows('organizations_manage')) {
-            return abort(401);
+            $organizations = Auth::user()->organizations()->get();
+            if (!count($organizations)) {
+                return abort(401);
+            }
+        } else {
+            $organizations = Organization::all();
         }
-
-        $organizations = Organization::all();
 
         return view('admin.organizations.index', compact('organizations'));
     }
@@ -71,11 +76,12 @@ class OrganizationsController extends Controller
      */
     public function edit($id)
     {
-        if (!Gate::allows('organizations_manage')) {
+        $organization = Organization::findOrFail($id);
+
+        if (!(Gate::allows('organizations_manage') || Bouncer::can('organizations_manage', $organization))) {
             return abort(401);
         }
 
-        $organization = Organization::findOrFail($id);
         $users = User::all()->pluck('name', 'id');
 
         return view('admin.organizations.edit', compact('organization', 'users'));

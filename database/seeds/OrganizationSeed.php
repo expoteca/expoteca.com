@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Organization;
-use \Bouncer as Bouncer;
 
 class OrganizationSeed extends Seeder
 {
@@ -18,8 +17,12 @@ class OrganizationSeed extends Seeder
             'email' => 'contactus@amnesty.org'
         ]);
         $org->users()->attach(1);
-        Bouncer::ownedVia(Organization::class, function ($org, $user) {
-            return $user->organizations->contains('id', $org->id);
-        });
+        $org->users()->attach(2);
+
+        $org2 = Organization::create([
+            'name' => 'Expoteca',
+            'email' => 'expoteca@expoteca.com'
+        ]);
+        $org2->users()->attach(1);
     }
 }
