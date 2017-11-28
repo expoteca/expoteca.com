@@ -4,8 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Organization;
-use \Bouncer as Bouncer;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,8 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Bouncer::ownedVia(Organization::class, function ($org, $user) {
-            return $user->organizations->contains('id', $org->id);
-        });
+        //
     }
 }
