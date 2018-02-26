@@ -14,3 +14,8 @@
 Route::get('/', 'WelcomeController@show');
 
 Route::get('/home', 'HomeController@show');
+
+// Sysadmin
+Route::prefix('_')->group(function () {
+    Route::post('deploy/{secret}', 'SysadminController@deploy');
+});
