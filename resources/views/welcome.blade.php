@@ -10,6 +10,7 @@
 
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <style>
         body, html {
@@ -66,6 +67,12 @@
             text-transform: uppercase;
             width: 100px;
         }
+
+        h1.title {
+            color: #636b6f;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 100;
+        }
     </style>
 </head>
 <body>
@@ -85,8 +92,8 @@
         </nav>
 
         <div class="flex-fill flex-center">
-            <h1 class="text-center">
-                <img src="/img/color-logo.png">
+            <h1 class="text-center title">
+                expoteca.com
             </h1>
         </div>
     </div>
