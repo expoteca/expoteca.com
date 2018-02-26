@@ -48,12 +48,13 @@ class SysadminController extends Controller
         } else {
             // Reply the POST request against the correct host
             $client = new Client();
-            $res = $client->post('//' . $branchHostMap[$branch] . "/_/deploy/$secretKey", [
-                'headers' => array_map(function ($key) {
-                    return substr($key, 5);
-                }, array_filter($_SERVER, function ($key) {
-                    return strpos($key, 'HTTP_') === 0;
-                })),
+            $res = $client->post('https://' . $branchHostMap[$branch] . "/_/deploy/$secretKey", [
+                'headers' => collect($_SERVER)
+                    ->filter(function ($value, $key) {
+                        return is_string($value) && is_string($key) && strpos($key, 'HTTP_') === 0;
+                    })->mapWithKeys(function ($value, $key) {
+                        return [substr($key, 5) => $value];
+                    })->toArray(),
                 'form_params' => $_POST
             ]);
             return (string) $res->getReasonPhrase();
