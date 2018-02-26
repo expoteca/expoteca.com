@@ -51,9 +51,10 @@ class SysadminController extends Controller
             $res = $client->post('https://' . $branchHostMap[$branch] . "/_/deploy/$secretKey", [
                 'headers' => collect($_SERVER)
                     ->filter(function ($value, $key) {
-                        return is_string($value) && is_string($key) && strpos($key, 'HTTP_') === 0;
+                        return is_string($value) && is_string($key) &&
+                            preg_match('/^HTTP_(X_(GIT)?HUB|USER_AGENT)/', $key);
                     })->mapWithKeys(function ($value, $key) {
-                        return [substr($key, 5) => $value];
+                        return [str_replace('_', '-', substr($key, 5)) => $value];
                     })->toArray(),
                 'form_params' => $_POST
             ]);
