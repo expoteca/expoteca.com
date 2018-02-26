@@ -72,6 +72,12 @@
             color: #636b6f;
             font-family: 'Raleway', sans-serif;
             font-weight: 100;
+            font-size: 5rem;
+            text-shadow:
+                1px 0 0 #fff,
+                -1px 0 0 #fff,
+                0 -1px 0 #fff,
+                0 1px 0 #fff;
         }
     </style>
 </head>

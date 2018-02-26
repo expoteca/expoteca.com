@@ -37,7 +37,8 @@ class SysadminController extends Controller
             return;
         }
 
-        if ($branchHostMap[$branch] === $_SERVER['SERVER_NAME']) {
+        if ($branchHostMap[$branch] === $_SERVER['SERVER_NAME'] ||
+            $branchHostMap[$branch] === $_SERVER['HTTP_HOST']) {
             Artisan::call('down');
             Artisan::call('code:pull');
             Artisan::call('optimize');
